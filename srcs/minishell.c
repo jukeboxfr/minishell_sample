@@ -23,7 +23,6 @@ void 	exec(t_command *command)
 	}
 	start_process(path, command);
 	free(path);
-	clear_command(&command);
 }
 
 void	minishell(t_var **envp)
@@ -48,5 +47,6 @@ void	minishell(t_var **envp)
 			return ;
 		}
 		exec(command);
+		clear_command(&command);
 	}
 }
