@@ -6,14 +6,14 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:49:36 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 15:54:05 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:04:22 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "io.h"
 
-static t_bool			executable(t_dirent *file, char *path)
+static t_bool	executable(t_dirent *file, char *path)
 {
 	struct stat		s;
 	int				(*f)(const char*, struct stat*);
@@ -28,7 +28,7 @@ static t_bool			executable(t_dirent *file, char *path)
 
 static char		*foo(char *base, char *filename)
 {
-	t_dir 		dir;
+	t_dir		dir;
 	t_dirent	*file;
 	char		*path;
 	int			(*f)(const char*, struct stat*);
@@ -38,8 +38,7 @@ static char		*foo(char *base, char *filename)
 	path = NULL;
 	while ((file = readdir(dir)))
 	{
-
-		if (ft_strcmp(file->d_name, filename))
+		if (ft_strcasecmp(file->d_name, filename))
 			continue ;
 		if (!(path = join_path(base, filename)))
 			break ;
@@ -54,7 +53,7 @@ static char		*foo(char *base, char *filename)
 	return (path);
 }
 
-static char 		*get_file_path(char *path, char *filename)
+static char		*get_file_path(char *path, char *filename)
 {
 	char	*base;
 
@@ -71,7 +70,7 @@ static char 		*get_file_path(char *path, char *filename)
 	return (foo(base, filename));
 }
 
-static char				*search_file_path(t_var *env, char *filename)
+static char		*search_file_path(t_var *env, char *filename)
 {
 	char	*var;
 	char	**directories;
@@ -93,7 +92,7 @@ static char				*search_file_path(t_var *env, char *filename)
 	return (path);
 }
 
-char		*get_path(t_var *env, char *filename)
+char			*get_path(t_var *env, char *filename)
 {
 	if (ft_strchr(filename, '/'))
 		return (get_file_path(filename, NULL) ? filename : NULL);
