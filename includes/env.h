@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 12:30:15 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 13:53:11 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 18:07:11 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 char			**str_env(t_var *env);
 t_var			*parse_envp(char **envp);
 
-char 			*get_var(t_var *env, char *name);
+char			*get_var(t_var *env, char *name);
 void			edit_var(t_var *env, char *name, char *value);
 void			append_var(t_var **envp, t_var *var);
 void			remove_var(t_var **envp, char *name);

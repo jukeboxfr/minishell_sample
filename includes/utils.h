@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:58:25 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 15:00:21 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 18:06:46 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "types.h"
 
+void		clear_tab(char **tab);
 char		*resolve_path(char *str);
 char		*join_path(char *path, char *filename);
 char		*get_base_path(char *str);

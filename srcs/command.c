@@ -11,19 +11,12 @@
 /* ************************************************************************** */
 
 #include "command.h"
+#include "utils.h"
 
 void				clear_command(t_command **command_p)
 {
-	t_command	*command;
-
-	command = *command_p;
-	if (command->argv)
-	{
-		while (command->argc--)
-			free((command->argv + command->argc));
-		free(command->argv);
-	}
-	free(command);
+	clear_tab((*command_p)->argv);
+	free(*command_p);
 	*command_p = NULL;
 }
 

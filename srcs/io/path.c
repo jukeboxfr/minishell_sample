@@ -56,6 +56,7 @@ static char		*foo(char *base, char *filename)
 static char		*get_file_path(char *path, char *filename)
 {
 	char	*base;
+	char	*file_path;
 
 	if (!(path = resolve_path(path)))
 		return (NULL);
@@ -67,7 +68,11 @@ static char		*get_file_path(char *path, char *filename)
 	}
 	else
 		base = path;
-	return (foo(base, filename));
+	file_path = foo(base, filename);
+	free(path);
+	if (filename)
+		free(base);
+	return (file_path);
 }
 
 static char		*search_file_path(t_var *env, char *filename)
@@ -79,9 +84,10 @@ static char		*search_file_path(t_var *env, char *filename)
 
 	if (!(var = get_var(env, "PATH")))
 		return (NULL);
-	if (!(directories = ft_strsplit(var, ':')))
+	directories = ft_strsplit(var, ':');
+	free(var);
+	if (!(dir = directories))
 		return (NULL);
-	dir = directories;
 	path = NULL;
 	while (*dir)
 	{
@@ -89,6 +95,7 @@ static char		*search_file_path(t_var *env, char *filename)
 			break ;
 		dir++;
 	}
+	clear_tab(directories);
 	return (path);
 }
 

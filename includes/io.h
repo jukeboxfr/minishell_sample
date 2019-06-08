@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   io.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/08 18:07:21 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/06/08 18:08:33 by kesaint-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef IO_H
 # define IO_H
-
 
 # include <stdio.h>
 # include <sys/stat.h>
@@ -25,8 +36,8 @@ typedef DIR*			t_dir;
 typedef struct dirent	t_dirent;
 typedef int				t_bool;
 
-int		read_until(char **line, char c, int keep);
-void	start_process(char *path, t_command *command);
-char*	get_path(t_var *env, char *filename);
+int						read_until(char **line, char c, int keep);
+void					start_process(char *path, t_command *command);
+char					*get_path(t_var *env, char *filename);
 
 #endif

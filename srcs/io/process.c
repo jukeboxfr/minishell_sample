@@ -14,16 +14,6 @@
 #include "command.h"
 #include "io.h"
 
-static void	clear_tab(char **str)
-{
-	char	**ptr;
-
-	ptr = str;
-	while (*ptr)
-		free(*ptr++);
-	free(str);
-}
-
 void	start_process(char *path, t_command *command)
 {
 	char	**env;

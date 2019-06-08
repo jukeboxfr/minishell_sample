@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 11:58:01 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 18:07:00 by kesaint-         ###   ########.fr       */
+/*   Created: 2019/06/08 18:05:17 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/06/08 18:06:14 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <stdlib.h>
 
-# include "types.h"
-# include "utils.h"
-# include "io.h"
-# include "env.h"
-# include "command.h"
-# include "builtins.h"
+void	clear_tab(char **tab)
+{
+	char	**ptr;
 
-void	minishell(t_var **envp);
-
-#endif
+	ptr = tab;
+	while (*ptr)
+		free(*ptr++);
+	free(tab);
+}
