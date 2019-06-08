@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "types.h"
 
+char			**str_env(t_var *env);
 t_var			*parse_envp(char **envp);
 
 char 			*get_var(t_var *env, char *name);

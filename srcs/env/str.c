@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-static int		length(t_var *var)
+static int		get_var_len(t_var *var)
 {
 	return (ft_strlen(var->name) + ft_strlen(var->value) + 1);
 }
@@ -23,9 +23,12 @@ static char		**copy_env(char **str, int count, t_var *env)
 
 	while (env)
 	{
-		size = 0;
+		size = get_var_len(env);
 		if (!(*str = (char*)ft_memalloc(sizeof(char) * (size + 1))))
 			return (NULL);
+		ft_strcpy(*str, env->name);
+		ft_strcat(*str, "=");
+		ft_strcat(*str, env->value);
 		str++;
 		env = env->next;
 	}

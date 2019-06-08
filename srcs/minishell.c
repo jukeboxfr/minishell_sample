@@ -21,8 +21,7 @@ void 	exec(t_command *command)
 		printf("Une erreur\n");
 		return ;
 	}
-	printf("OK\n");
-	printf("Le chemin est %s\n", path);
+	start_process(path, command);
 }
 
 void	minishell(t_var **envp)

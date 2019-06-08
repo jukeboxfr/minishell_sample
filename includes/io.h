@@ -26,6 +26,7 @@ typedef struct dirent	t_dirent;
 typedef int				t_bool;
 
 int		read_until(char **line, char c, int keep);
+void	start_process(char *path, t_command *command);
 char*	get_path(t_var *env, char *filename);
 
 #endif

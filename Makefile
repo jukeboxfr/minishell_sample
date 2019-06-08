@@ -6,7 +6,7 @@
 #    By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 18:20:01 by kesaint-          #+#    #+#              #
-#    Updated: 2019/06/08 15:56:55 by kesaint-         ###   ########.fr        #
+#    Updated: 2019/06/08 17:11:44 by kesaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FILES = main.c minishell.c command.c builtins.c \
 		env/clear.c env/handle.c env/parse.c env/str.c \
 		builtins/cd.c builtins/echo.c builtins/env.c builtins/error.c \
 		builtins/exit.c builtins/setenv.c builtins/unsetenv.c \
-		io/read_until.c io/process.c \
+		io/read.c io/path.c io/process.c \
 		utils/path.c
 SRCS = $(addprefix $(SDIR), $(FILES))
 OBJS = $(addprefix $(ODIR), $(FILES:.c=.o))
