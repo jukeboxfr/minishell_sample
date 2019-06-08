@@ -9,7 +9,9 @@
 # include <dirent.h>
 # include <unistd.h>
 
+# include "types.h"
 # include "libft.h"
+# include "utils.h"
 
 # define STDIN 0
 # define STDOUT 1
@@ -24,5 +26,6 @@ typedef struct dirent	t_dirent;
 typedef int				t_bool;
 
 int		read_until(char **line, char c, int keep);
+char*	get_path(t_var *env, char *filename);
 
 #endif
