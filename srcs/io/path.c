@@ -70,13 +70,13 @@ static char		*get_file_path(char *path, char *filename)
 		base = path;
 	file_path = foo(base, filename);
 	free(path);
-	if (filename)
+	if (base != path)
 		free(base);
 	return (file_path);
 }
 
 static char		*search_file_path(t_var *env, char *filename)
-{
+{	
 	char	*var;
 	char	**directories;
 	char	**dir;
