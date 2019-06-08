@@ -1,0 +1,4 @@
+/obj
+*.dSYM
+minishell
+.DS_STORE
