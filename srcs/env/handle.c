@@ -23,16 +23,22 @@ char	*get_var(t_var *env, char *name)
 	return (NULL);
 }
 
+#include <stdio.h>
+
 void	edit_var(t_var *env, char *name, char *value)
 {
 	while (env)
 	{
-		if (ft_strcmp(name, value))
+		if (ft_strcmp(env->name, name))
 			env = env->next;
+	printf("La vraie valeur: %s\n\n", value);
+		
 		free(env->value);
-		env->value = value;
+		env->value = ft_strdup(value);
+		printf("Test: %s\n", env->value);
 		return ;
 	}
+	printf("KO\n");
 }
 
 void	append_var(t_var **envp, t_var *var)
