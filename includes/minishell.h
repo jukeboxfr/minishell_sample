@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:58:01 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 13:09:53 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:11:25 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "types.h"
+# include "utils.h"
 # include "io.h"
 # include "env.h"
 # include "command.h"

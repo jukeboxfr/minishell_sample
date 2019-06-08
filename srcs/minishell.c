@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:43:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 15:02:09 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:10:43 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool			file_exists(char *path, char *filename)
 	t_bool		exists;
 
 	if (!(path = resolve_path(path)))
-		return (NULL);
+		return (FALSE);
 	if (!filename)
 	{
 		if (!(base = get_base_path((char*)path)))
@@ -68,14 +68,14 @@ t_bool			file_exists(char *path, char *filename)
 	return (exists);
 }
 
-char			*get_file_path(t_var **envp, const char *filename)
+char			*get_file_path(t_var *env, const char *filename)
 {
 	char	*env_path;
 	char	**directory_path;
 	char	**path;
 	char	*executable_path;
 
-	if (!(env_path = get_var(envp, "PATH")))
+	if (!(env_path = get_var(env, "PATH")))
 		return (NULL);
 	if (!(directory_path = ft_strsplit(env_path, ':')))
 		return (NULL);
@@ -90,7 +90,7 @@ char			*get_file_path(t_var **envp, const char *filename)
 		}
 		path++;
 	}
-	clear_tab(directory_path);
+	//clear_tab(directory_path);
 	return (executable_path);
 }
 
