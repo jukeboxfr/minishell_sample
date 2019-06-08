@@ -6,10 +6,11 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 12:40:30 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 13:52:29 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 19:29:19 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "env.h"
 
 char	*get_var(t_var *env, char *name)
@@ -23,16 +24,13 @@ char	*get_var(t_var *env, char *name)
 	return (NULL);
 }
 
-#include <stdio.h>
-
 void	edit_var(t_var *env, char *name, char *value)
 {
 	while (env)
 	{
 		if (ft_strcmp(env->name, name))
 			env = env->next;
-	printf("La vraie valeur: %s\n\n", value);
-		
+		printf("La vraie valeur: %s\n\n", value);
 		free(env->value);
 		env->value = ft_strdup(value);
 		printf("Test: %s\n", env->value);

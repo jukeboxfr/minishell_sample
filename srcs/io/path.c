@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:49:36 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 17:04:22 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 19:27:47 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char		*get_file_path(char *path, char *filename)
 }
 
 static char		*search_file_path(t_var *env, char *filename)
-{	
+{
 	char	*var;
 	char	**directories;
 	char	**dir;

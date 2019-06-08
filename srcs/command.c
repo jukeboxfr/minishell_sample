@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:56:53 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 12:10:36 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 19:27:12 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int			count_argv(char **argv)
 
 t_command			*parse_command(char *str)
 {
-	t_command 	*command;
+	t_command	*command;
 
 	if (!(command = (t_command*)ft_memalloc(sizeof(t_command))))
 		return (NULL);

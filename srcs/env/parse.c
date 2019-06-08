@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 12:18:37 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 12:34:19 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 19:28:47 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static t_var	*parse_var(char *str)
 	}
 	return (var);
 }
+
 t_var			*parse_envp(char **envp)
 {
 	t_var		*var;
