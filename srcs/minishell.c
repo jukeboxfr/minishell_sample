@@ -17,7 +17,11 @@ void 	exec(t_command *command)
 	char	*path;
 
 	if (!(path = get_path(command->env, command->argv[0])))
+	{
+		printf("Une erreur\n");
 		return ;
+	}
+	printf("OK\n");
 	printf("Le chemin est %s\n", path);
 }
 

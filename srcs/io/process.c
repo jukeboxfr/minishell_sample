@@ -13,85 +13,89 @@
 #include "env.h"
 #include "io.h"
 
-static t_bool			is_exe(mode_t d_type, char *path)
+static t_bool			executable(t_dirent *file, char *path)
 {
 	struct stat		s;
 	int				(*f)(const char*, struct stat*);
 
-	if (d_type != DT_DIR && d_type != DT_LNK)
+	if (file->d_type == DT_DIR)
 		return (FALSE);
-	f = (d_type == DT_DIR) ? &stat : &lstat;
+	f = (file->d_type == DT_LNK) ? &stat : &lstat;
 	if (f(path, &s))
 		return (FALSE);
 	return (s.st_mode & S_IXUSR);
 }
 
-static t_bool			check_fi_exists(t_dir dir, char *filename)
+static char		*foo(char *base, char *filename)
 {
+	t_dir 		dir;
 	t_dirent	*file;
+	char		*path;
+	int			(*f)(const char*, struct stat*);
 
+	if (!(dir = opendir(base)))
+		return (NULL);
+	path = NULL;
 	while ((file = readdir(dir)))
 	{
+
 		if (ft_strcmp(file->d_name, filename))
 			continue ;
-		closedir(dir);
-		return (TRUE);
+		if (!(path = join_path(base, filename)))
+			break ;
+		if (!executable(file, path))
+		{
+			free(path);
+			path = NULL;
+		}
+		break ;
 	}
 	closedir(dir);
-	return (FALSE);
+	return (path);
 }
 
-static t_bool			file_exists(char *path, char *filename)
+static char 		*get_file_path(char *path, char *filename)
 {
-	char		*base;
-	t_dir		dir;
-	t_bool		exists;
+	char	*base;
 
 	if (!(path = resolve_path(path)))
-		return (FALSE);
+		return (NULL);
 	if (!filename)
 	{
-		if (!(base = get_base_path((char*)path)))
-			return (FALSE);
-		if (!(filename = get_filename((char*)path)))
-		{
-			free(base);
-			return (FALSE);
-		}
+		if (!(base = get_base_path(path)))
+			return (NULL);
+		filename = get_filename(path);
 	}
 	else
-		base = (char*)path;
-	exists = FALSE;
-	if ((dir = opendir(base)))
-		exists = check_fi_exists(dir, filename);
-	if (!filename)
-		free(base);
-	return (exists);
+		base = path;
+	return (foo(base, filename));
 }
 
-static char				*get_file_path(t_var *env, const char *filename)
+static char				*search_file_path(t_var *env, char *filename)
 {
 	char	*var;
 	char	**directories;
-	char	**path;
+	char	**dir;
+	char	*path;
 
 	if (!(var = get_var(env, "PATH")))
 		return (NULL);
 	if (!(directories = ft_strsplit(var, ':')))
 		return (NULL);
-	path = directories;
-	while (*path)
+	dir = directories;
+	path = NULL;
+	while (*dir)
 	{
-		if (file_exists(*path, (char*)filename))
-			return (join_path(*path, (char*)filename));
-		path++;
+		if ((path = get_file_path(*dir, filename)))
+			break ;
+		dir++;
 	}
-	return (NULL);
+	return (path);
 }
 
 char		*get_path(t_var *env, char *filename)
 {
 	if (ft_strchr(filename, '/'))
-		return (file_exists(filename, NULL) ? filename : NULL);
-	return (get_file_path(env, filename));
+		return (get_file_path(filename, NULL) ? filename : NULL);
+	return (search_file_path(env, filename));
 }
