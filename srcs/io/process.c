@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 17:11:57 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 17:12:29 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/08 18:47:49 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 void	start_process(char *path, t_command *command)
 {
 	char	**env;
-	int		pid;	
+	int		pid;
+	char	*pwd;
 
-	if (!(env = str_env(command->env)))
-		return ;
 	if (!(pid = fork()))
 	{
-		execve(path, command->argv, env);
-		free(path);
+		edit_var(command->env, "_", path);
+		if ((env = str_env(command->env)))
+			execve(path, command->argv, env);
 		clear_envp(&(command->env));
 		clear_command(&command);
-		clear_tab(env);
+		if (env)
+			clear_tab(env);
 		exit(1);
 	}
-	clear_tab(env);
 	waitpid(pid, NULL, 0);
 }
