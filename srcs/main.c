@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+void	init(t_var **envp)
+{
+	char	buffer[MAX_PATH + 1];
+	char	*path;
+
+	if (!getcwd(buffer, MAX_PATH))
+		return ;
+	if (!(path = ft_strdup(buffer)))
+		return ;
+	edit_var(*envp, "SHELL", path);
+}
+
 int		main(int argc, char *argv[], char *envp[])
 {
 	t_var	*env;
@@ -20,6 +32,7 @@ int		main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	if (!(env = (t_var*)parse_envp(envp)))
 		return (ERROR);
+	init(&env);
 	minishell(&env);
 	clear_envp(&env);
 	return (0);

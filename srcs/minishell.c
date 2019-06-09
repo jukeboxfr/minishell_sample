@@ -17,12 +17,16 @@ void	exec(t_command *command)
 	char	*path;
 
 	if (!(path = get_path(command->env, command->argv[0])))
-	{
-		printf("Une erreur\n");
 		return ;
-	}
 	start_process(path, command);
 	free(path);
+}
+
+int		check_builtin(t_var **envp, t_command *command)
+{
+	if (!ft_strcmp(command->argv[0], "cd"))
+		return (builtin_cd(command->argc, command->argv, envp));
+	return (ERROR);
 }
 
 void	minishell(t_var **envp)
@@ -46,7 +50,8 @@ void	minishell(t_var **envp)
 			clear_command(&command);
 			return ;
 		}
-		exec(command);
+		if (check_builtin(envp, command))
+			exec(command);
 		clear_command(&command);
 	}
 }

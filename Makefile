@@ -6,7 +6,7 @@
 #    By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 18:20:01 by kesaint-          #+#    #+#              #
-#    Updated: 2019/06/08 18:08:50 by kesaint-         ###   ########.fr        #
+#    Updated: 2019/06/09 15:01:58 by kesaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ INCLUDES = -I ./includes -I $(LDIR)includes
 CFLAGS = -g -Wall -Werror -Wextra
 FILES = main.c minishell.c command.c builtins.c \
 		env/clear.c env/handle.c env/parse.c env/str.c \
-		builtins/cd.c builtins/echo.c builtins/env.c builtins/error.c \
-		builtins/exit.c builtins/setenv.c builtins/unsetenv.c \
+		builtins/cd.c builtins/echo.c builtins/env.c \
+		builtins/setenv.c builtins/unsetenv.c \
 		io/read.c io/path.c io/process.c \
 		utils/path.c utils/tab.c
 SRCS = $(addprefix $(SDIR), $(FILES))

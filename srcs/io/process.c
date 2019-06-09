@@ -23,7 +23,6 @@ void	start_process(char *path, t_command *command)
 	if (!(pid = fork()))
 	{
 		edit_var(command->env, "_", path);
-		printf("Test: %s\n", get_var(command->env, "_"));
 		if ((env = str_env(command->env)))
 			execve(path, command->argv, env);
 		clear_envp(&(command->env));

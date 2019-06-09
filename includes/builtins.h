@@ -14,5 +14,9 @@
 # define BUILTINS_H
 
 # include "command.h"
+# include "io.h"
+# include "types.h"
+
+int				builtin_cd(int argc, char **argv, t_var **envp);
 
 #endif

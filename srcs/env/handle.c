@@ -28,15 +28,14 @@ void	edit_var(t_var *env, char *name, char *value)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->name, name))
-			env = env->next;
-		printf("La vraie valeur: %s\n\n", value);
-		free(env->value);
-		env->value = ft_strdup(value);
-		printf("Test: %s\n", env->value);
-		return ;
+		if (!ft_strcmp(env->name, name))
+		{
+			free(env->value);
+			env->value = value;
+			return ;
+		}
+		env = env->next;
 	}
-	printf("KO\n");
 }
 
 void	append_var(t_var **envp, t_var *var)
