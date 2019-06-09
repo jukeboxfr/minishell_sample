@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:43:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 19:27:21 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/09 15:35:18 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,15 @@ void	exec(t_command *command)
 
 int		check_builtin(t_var **envp, t_command *command)
 {
+	void	(*f)(int,char**,t_var**);
+
 	if (!ft_strcmp(command->argv[0], "cd"))
-		return (builtin_cd(command->argc, command->argv, envp));
+		f = &builtin_cd;
+	if (f)
+	{
+		f(command->argc, command->argv, envp);
+		return (SUCCESS);
+	}
 	return (ERROR);
 }
 

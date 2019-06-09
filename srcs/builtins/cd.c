@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 19:45:35 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/09 14:57:43 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/09 15:32:46 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@
 # define NOT_FOUND (1 << 3)
 
 int			check_directory(char *path, char *base, char *filename);
+
+static void		display_error(int code, char *filename)
+{
+	ft_putstr("cd: ");
+	if (code == NOT_FOUND)
+		ft_putstr("no such file or directory: ");
+	if (code == DENIED)
+		ft_putstr("permission denied: ");
+	if (code == NOT_DIR)
+		ft_putstr("not a directory: ");
+	ft_putstr(filename);
+	ft_putchar('\n');
+}
 
 static int		check_symlink(char *path)
 {
@@ -84,8 +97,7 @@ static int		fi_not_access(char *arg)
 	}
 	filename = get_filename(path);
 	if ((code = check_directory(path, base, *filename ? filename : ".")))
-		puts("\nError\n");
-		//display_cd_error(code, arg);
+		display_error(code, arg);
 	free(path);
 	free(base);
 	return (code);
@@ -107,7 +119,7 @@ static void		change_directory(t_var **envp, char *path)
 	edit_var(*envp, "PWD", pwd);
 }
 
-int				builtin_cd(int argc, char **argv, t_var **envp)
+void			builtin_cd(int argc, char **argv, t_var **envp)
 {
 	char	*path;
 
@@ -118,16 +130,14 @@ int				builtin_cd(int argc, char **argv, t_var **envp)
 			change_directory(envp, path);
 			free(path);
 		}
-		return (SUCCESS);
+		return ;
 	}
 	if (argc > 3)
 	{
 		puts("Error test\n");
-		//display_cd_error(MANY_ARGS, NULL);
-		return (ERROR);
+		return ;
 	}
 	if (fi_not_access(argv[1]))
-		return (ERROR);
+		return ;
 	change_directory(envp, argv[1]);
-	return (SUCCESS);
 }
