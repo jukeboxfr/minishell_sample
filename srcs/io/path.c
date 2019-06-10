@@ -101,7 +101,13 @@ static char		*search_file_path(t_var *env, char *filename)
 
 char			*get_path(t_var *env, char *filename)
 {
+	char	*path;
+
 	if (ft_strchr(filename, '/'))
-		return (get_file_path(filename, NULL) ? filename : NULL);
+	{
+		if ((path = get_file_path(filename, NULL)))
+			return (path);
+		return (NULL);
+	}
 	return (search_file_path(env, filename));
 }
