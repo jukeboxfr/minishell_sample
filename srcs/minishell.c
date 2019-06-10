@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:43:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/10 19:16:58 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:26:28 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		check_builtin(t_var **envp, t_command *command)
 		f = &builtin_setenv;
 	if (!ft_strcmp(command->argv[0], "unset"))
 		f = &builtin_unsetenv;
+	if (!ft_strcmp(command->argv[0], "env"))
+		f = &builtin_env;
 	if (f)
 	{
 		f(command->argc, command->argv, envp);

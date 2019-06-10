@@ -42,7 +42,7 @@ void		builtin_setenv(int argc, char **argv, t_var **envp)
 	char	*value;
 
 	if (argc < 2)
-		return (ft_putstr("Missing arguments\n"));
+		return (builtin_env(argc, argv, envp));
 	if (!(name = get_var_name(argv[1])))
 		return ;
 	if (!(value = get_var_value(argv[1])))
