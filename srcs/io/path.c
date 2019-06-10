@@ -84,7 +84,8 @@ static char		*search_file_path(t_var *env, char *filename)
 
 	if (!(var = get_var(env, "PATH")))
 		return (NULL);
-	directories = ft_strsplit(var, ':');
+	// :, ;
+	directories = ft_sstrsplit(var, ":;");
 	free(var);
 	if (!(dir = directories))
 		return (NULL);

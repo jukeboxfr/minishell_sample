@@ -49,6 +49,7 @@ SRCS = 	ft_lstcount.c \
 		ft_striteri.c \
 		ft_strjoin.c \
 		ft_strlcat.c \
+		ft_sstrsplit.c \
 		ft_strsplit.c \
 		ft_strrchr.c \
 		ft_strlen.c \

@@ -6,7 +6,7 @@
 /*   By: kesaint- <kesaint-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:16:51 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/05/04 15:02:20 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:57:03 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void			*ft_memset(void *s, int c, size_t n);
 char			*ft_strcat(char *dest, const char *src);
 char			*ft_strchr(const char *s, int c);
 char			**ft_strsplit(char const *s, char c);
+char			**ft_sstrsplit(char const *s, char *search);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strdup(const char *s);
 char			*ft_strjoin(char const *s1, char const *s2);
