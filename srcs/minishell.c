@@ -18,7 +18,6 @@ void	exec(t_command *command)
 
 	if (!(path = get_path(command->env, command->argv[0])))
 		return ;
-	printf("%p\n", path);
 	start_process(path, command);
 	free(path);
 }

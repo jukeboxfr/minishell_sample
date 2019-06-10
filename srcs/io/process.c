@@ -6,13 +6,14 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 17:11:57 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/10 14:50:34 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 17:53:10 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "command.h"
 #include "io.h"
+
 
 void	start_process(char *path, t_command *command)
 {
