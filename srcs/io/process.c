@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 17:11:57 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 18:47:49 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:50:34 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	start_process(char *path, t_command *command)
 
 	if (!(pid = fork()))
 	{
-		edit_var(command->env, "_", path);
+		edit_var(&(command->env), "_", path);
 		if ((env = str_env(command->env)))
 			execve(path, command->argv, env);
 		clear_envp(&(command->env));

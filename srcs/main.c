@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:41:31 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 11:43:01 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:49:54 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init(t_var **envp)
 		return ;
 	if (!(path = ft_strdup(buffer)))
 		return ;
-	edit_var(*envp, "SHELL", path);
+	edit_var(envp, "SHELL", path);
 }
 
 int		main(int argc, char *argv[], char *envp[])

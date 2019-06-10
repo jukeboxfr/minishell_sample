@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 19:45:35 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/09 15:32:46 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:48:34 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ static void		change_directory(t_var **envp, char *path)
 	chdir(path);
 	if (!(old = get_var(*envp, "PWD")))
 		return ;
-	edit_var(*envp, "OLDPWD", old);
+	edit_var(envp, "OLDPWD", old);
 	getcwd(buffer, MAX_PATH);
 	if (!(pwd = ft_strdup(buffer)))
 		return ;
-	edit_var(*envp, "PWD", pwd);
+	edit_var(envp, "PWD", pwd);
 }
 
 void			builtin_cd(int argc, char **argv, t_var **envp)
