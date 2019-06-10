@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:49:36 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 19:27:47 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:17:20 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static char		*search_file_path(t_var *env, char *filename)
 
 	if (!(var = get_var(env, "PATH")))
 		return (NULL);
-	// :, ;
 	directories = ft_sstrsplit(var, ":;");
 	free(var);
 	if (!(dir = directories))
