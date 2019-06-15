@@ -40,7 +40,11 @@ static int		check_symlink(char *path)
 
 	if (readlink(path, buffer, MAX_PATH) == ERROR)
 		return (ERROR);
-	if (!(path = resolve_path(buffer)))
+	if (*path == '/' && buffer[0] != '/')
+		path = join_path("/", buffer);
+	else
+		path = resolve_path(buffer);
+	if (!path)
 		return (ERROR);
 	if (!(base = get_base_path(path)))
 	{

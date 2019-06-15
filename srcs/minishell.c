@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:43:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/10 19:26:28 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/06/15 02:11:01 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ void	minishell(t_var **envp)
 		ft_putstr("$> ");
 		if (read_until(&line, '\n', 0) < 0)
 			return ;
+		if (!(line = parse_quotes(line)))
+		{
+			printf("Une erreur a eu lieu\n");
+			exit(0);
+		}
+		printf("La ligne est %s\n", line);
+		exit(0);
 		command = parse_command(line);
 		free(line);
 		if (!command)
