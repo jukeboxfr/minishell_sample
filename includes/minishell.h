@@ -21,7 +21,6 @@
 # include "builtins.h"
 
 void	minishell(t_var **envp);
-char	*parse_quotes(char *arg);
 char	*parse_args(char *line);
 
 #endif

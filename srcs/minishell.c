@@ -52,16 +52,8 @@ void	minishell(t_var **envp)
 	while (1)
 	{
 		ft_putstr("$> ");
-		if (read_until(&line, '\n', TRUE) < 0)
+		if (read_until(&line, '\n', FALSE) < 0)
 			return ;
-		if (!(line = parse_quotes(line)))
-		{
-			printf("Une erreur a eu lieu\n");
-			exit(0);
-		}
-		printf("La ligne est %s\n", line);
-		parse_args(line);
-		exit(0);
 		command = parse_command(line);
 		free(line);
 		if (!command)
