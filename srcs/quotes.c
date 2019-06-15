@@ -71,21 +71,23 @@ static int					count_args(char *line)
 	char	*ptr;
 
 	count = 0;
+	ptr = line;
 	while (*ptr)
 	{
-		if (*ptr == '"')
+		if ((ptr == line || *(ptr - 1) != '\\') && *ptr == '"')
 		{
+			++ptr;
 			while (*ptr && *ptr != '"')
 				ptr++;
 			if (*ptr == '"')
+		
 				count++;
 		}
-		if (*ptr == ' ')
+		else if (ptr == line || (*(ptr - 1) == ' ' && *ptr != ' '))
 		{
-			while (*ptr && *ptr == ' ')
+			while (*ptr && *ptr != ' ')
 				ptr++;
-			if (*ptr && *ptr != '"')
-				count++;
+			count++;
 		}
 		ptr++;
 	}
