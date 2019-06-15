@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static unsigned int		count_quotes(char *arg)
+static unsigned int			count_quotes(char *arg)
 {
 	unsigned int	i;
 	unsigned int	count;
@@ -67,33 +67,27 @@ char					*parse_quotes(char *arg)
 
 static int					count_args(char *line)
 {
-	int		i;
-	int		count;
-	t_bool	quote;
+	int	count;
+	char	*ptr;
 
-	quote = 0;
-	count = 1;
-	while (line[i])
+	count = 0;
+	while (*ptr)
 	{
-		if ((line[i] == '"' && (i && line[i - 1] != '\\')))
+		if (*ptr == '"')
 		{
-			if (quote)
-			{
-				quote = 0;
-				count++;
-			}
-			else
-				quote = 1;
-		}
-		if ((line[i] == ' ') && !quote)
-		{
-			while (line[i] && line[i] == ' ')
-				i++;
-			if (line[i] != '\0' && line[i] != '"')
+			while (*ptr && *ptr != '"')
+				ptr++;
+			if (*ptr == '"')
 				count++;
 		}
-		else
-			i++;
+		if (*ptr == ' ')
+		{
+			while (*ptr && *ptr == ' ')
+				ptr++;
+			if (*ptr && *ptr != '"')
+				count++;
+		}
+		ptr++;
 	}
 	return (count);
 }
