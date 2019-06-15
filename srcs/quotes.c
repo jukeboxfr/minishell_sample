@@ -65,8 +65,6 @@ char					*parse_quotes(char *arg)
 	return (arg);
 }
 
-// pomme fraise   "banane lol"          le ou
-
 static int					count_args(char *line)
 {
 	int	count;
@@ -78,7 +76,7 @@ static int					count_args(char *line)
 	{
 		while (*ptr && *ptr == ' ')
 			ptr++;
-		if ((ptr == line || *(ptr - 1) != '\\') && *ptr == '"')
+		if ((ptr == line || (*(ptr - 1) != '\\')) && *ptr == '"')
 		{
 			++ptr;
 			while (*ptr && *ptr != '"')
@@ -97,16 +95,51 @@ static int					count_args(char *line)
 	return (count);
 }
 
+static char			*cstr(char *line, char c)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != c)
+		i++;
+	return (ft_strndup(line, i));
+}
+
+void			foo(char **args, char *line)
+{
+	char	*ptr;
+
+	ptr = line;
+	while (*ptr)
+	{
+		while (*ptr && *ptr == ' ')
+			ptr++;
+		if ((ptr == line || (*(ptr - 1) != '\\')) && *ptr == '"')
+			*args = cstr(++ptr, '"');
+		else if (ptr == line || (*ptr - 1) == ' ' && *ptr && *ptr != ' ')
+			*args = cstr(ptr, ' ');
+		args++;
+		ptr++;
+	}
+}
+
 char				*parse_args(char *line)
 {
 	char	**args;
 	int		count;
 
 	count = count_args(line);
-	printf("Le nombre d'arguments est %d\n", count);
+	printf("Le nombre d'arguments est %i\n", count);
+	fflush(stdout);
+	if (!(args = (char**)ft_memalloc(sizeof(char*) + (count + 1))))
+		return (NULL);
+	foo(args, line);
+	while (*args)
+	{
+		ft_putstr("Param -> ");
+		ft_putstr(*args);
+		ft_putchar('\n');
+		args++;
+	}
 	return (NULL);
-	// if (!(args = (char**)ft_memalloc(sizeof(char*) + (count + 1))))
-	// 	return (NULL);
-
-	// return (args);
 }
