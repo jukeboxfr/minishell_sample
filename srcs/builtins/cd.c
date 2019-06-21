@@ -12,20 +12,14 @@
 
 #include "minishell.h"
 
-# define NOT_DIR (1 << 0)
-# define DENIED (1 << 2)
-# define NOT_FOUND (1 << 3)
-
-int			check_directory(char *path, char *base, char *filename);
-
 static void		display_error(int code, char *filename)
 {
 	ft_putstr("cd: ");
-	if (code == NOT_FOUND)
+	if (code == ERR_NOT_FOUND)
 		ft_putstr("no such file or directory: ");
-	if (code == DENIED)
+	if (code == ERR_DENIED)
 		ft_putstr("permission denied: ");
-	if (code == NOT_DIR)
+	if (code == ERR_NOT_DIR)
 		ft_putstr("not a directory: ");
 	ft_putstr(filename);
 	ft_putchar('\n');
@@ -65,7 +59,7 @@ int			check_directory(char *path, char *base, char *filename)
 	int			code;
 
 	if (!(dir = opendir(base)))
-		return (NOT_DIR);
+		return (ERR_NOT_DIR);
 	code = 0;
 	while ((file = readdir(dir)))
 	{
@@ -74,14 +68,14 @@ int			check_directory(char *path, char *base, char *filename)
 		if (file->d_type == DT_LNK)
 			code = check_symlink(path);
 		else if (file->d_type != DT_DIR)
-			code = NOT_DIR;
+			code = ERR_NOT_DIR;
 		else if (access(path, R_OK))
-			code = DENIED;
+			code = ERR_DENIED;
 		break ;
 	}
 	closedir(dir);
 	if (!file)
-		code = NOT_FOUND;
+		code = ERR_NOT_FOUND;
 	return (code);
 }
 

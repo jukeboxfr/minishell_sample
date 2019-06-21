@@ -17,6 +17,12 @@
 # include "io.h"
 # include "types.h"
 
+# define ERR_NOT_DIR (1 << 0)
+# define ERR_DENIED (1 << 2)
+# define ERR_NOT_FOUND (1 << 3)
+
+int			check_directory(char *path, char *base, char *filename);
+
 void		builtin_echo(int argc, char **argv, t_var **envp);
 void		builtin_env(int argc, char **argv, t_var **envp);
 void		builtin_unsetenv(int argc, char **argv, t_var **envp);
