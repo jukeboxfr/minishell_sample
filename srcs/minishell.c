@@ -27,6 +27,8 @@ int		check_builtin(t_var **envp, t_command *command)
 	void	(*f)(int, char**, t_var**);
 
 	f = NULL;
+	if (!ft_strcmp(command->argv[0], "echo"))
+		f = &builtin_echo;
 	if (!ft_strcmp(command->argv[0], "cd"))
 		f = &builtin_cd;
 	if (!ft_strcmp(command->argv[0], "export"))

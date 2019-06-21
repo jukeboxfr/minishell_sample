@@ -17,6 +17,7 @@
 # include "io.h"
 # include "types.h"
 
+void		builtin_echo(int argc, char **argv, t_var **envp);
 void		builtin_env(int argc, char **argv, t_var **envp);
 void		builtin_unsetenv(int argc, char **argv, t_var **envp);
 void		builtin_cd(int argc, char **argv, t_var **envp);
