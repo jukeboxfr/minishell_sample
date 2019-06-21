@@ -13,10 +13,15 @@
 #ifndef COMMAND_H
 # define COMMAND_H
 
+# include <pwd.h>
+# include <sys/types.h>
+# include <unistd.h>
+
 # include "libft.h"
 # include "types.h"
+# include "env.h"
 
 void			clear_command(t_command **command_p);
-t_command		*parse_command(char *str);
+t_command		*parse_command(t_var *env, char *str);
 
 #endif

@@ -56,7 +56,7 @@ void	minishell(t_var **envp)
 		ft_putstr("$> ");
 		if (read_until(&line, '\n', FALSE) < 0)
 			return ;
-		command = parse_command(line);
+		command = parse_command(*envp, line);
 		free(line);
 		if (!command)
 			continue ;
