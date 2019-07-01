@@ -17,10 +17,9 @@
 void	start_process(char *path, t_command *command)
 {
 	char	**env;
-	int		pid;
 	char	*pwd;
 
-	if (!(pid = fork()))
+	if (!(g_child_pid = fork()))
 	{
 		edit_var(&(command->env), "_", path);
 		if ((env = str_env(command->env)))
@@ -31,5 +30,5 @@ void	start_process(char *path, t_command *command)
 			clear_tab(env);
 		exit(1);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(g_child_pid, NULL, 0);
 }

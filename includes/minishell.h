@@ -13,6 +13,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <sys/types.h>
+#include <signal.h>
+
 # include "types.h"
 # include "utils.h"
 # include "io.h"
@@ -20,7 +23,10 @@
 # include "command.h"
 # include "builtins.h"
 
-void	minishell(t_var **envp);
-char	*parse_args(char *line);
+char			*check_shell_bang(t_command *command, t_command *previous);
+
+void			listen_signals(void);
+void			minishell(t_var **envp);
+char			*parse_args(char *line);
 
 #endif

@@ -50,6 +50,7 @@ void	minishell(t_var **envp)
 	char		*line;
 	t_command	*command;
 
+	g_child_pid = 0;
 	line = NULL;
 	while (1)
 	{

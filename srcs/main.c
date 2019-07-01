@@ -33,6 +33,7 @@ int		main(int argc, char *argv[], char *envp[])
 	if (!(env = (t_var*)parse_envp(envp)))
 		return (ERROR);
 	init(&env);
+	listen_signals();
 	minishell(&env);
 	clear_envp(&env);
 	return (0);

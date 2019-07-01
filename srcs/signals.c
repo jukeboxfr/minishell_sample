@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 12:12:53 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 12:15:28 by kesaint-         ###   ########.fr       */
+/*   Created: 2019/07/01 16:37:08 by kesaint-          #+#    #+#             */
+/*   Updated: 2019/07/01 16:37:29 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "command.h"
+#include "minishell.h"
 
-t_bool		handle_builtin(t_command *command)
+static void		signal_handler(int sig)
 {
-	(void)command;
-	return (0);
+	if (sig == SIGINT && g_child_pid != -1)
+	{
+		if (kill(g_child_pid, SIGINT) == ERROR)
+			ft_putstr("Can not kill the child process\n");
+		else
+			g_child_pid = -1;
+	}
+}
+
+void			listen_signals(void)
+{
+	signal(SIGINT, signal_handler);
 }

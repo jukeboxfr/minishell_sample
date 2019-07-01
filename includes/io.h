@@ -40,4 +40,6 @@ int						read_until(char **line, char c, int keep);
 void					start_process(char *path, t_command *command);
 char					*get_path(t_var *env, char *filename);
 
+int						g_child_pid;
+
 #endif

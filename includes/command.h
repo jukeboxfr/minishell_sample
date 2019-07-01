@@ -21,6 +21,8 @@
 # include "types.h"
 # include "env.h"
 
+void			replace_vars(t_var *env, char **argv);
+
 void			clear_command(t_command **command_p);
 t_command		*parse_command(t_var *env, char *str);
 
