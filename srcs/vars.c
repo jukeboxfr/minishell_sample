@@ -62,7 +62,7 @@ static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
 	return (arg);
 }
 
-static char			*replace_var(t_var *env, char **argv, char *start_ptr)
+static void			replace_var(t_var *env, char **argv, char *start_ptr)
 {
 	char	*end_ptr;
 	char	*value;
@@ -70,7 +70,7 @@ static char			*replace_var(t_var *env, char **argv, char *start_ptr)
 
 	end_ptr = (start_ptr + 1);
 	while (*end_ptr && (ft_isalnum(*end_ptr) || *end_ptr == '_'
-		|| (*end_ptr == '$' && !*(end_ptr + 1))))
+		|| (*end_ptr == '$' && end_ptr == (start_ptr + 1))))
 		end_ptr++;
 	c = *end_ptr;
 	*end_ptr = '\0';
@@ -79,13 +79,10 @@ static char			*replace_var(t_var *env, char **argv, char *start_ptr)
 	*end_ptr = c;
 	c = *start_ptr;
 	*start_ptr = '\0';
-	printf("Le pointeur de fin est [%s]\n", end_ptr);
-	fflush(stdout);
 	if (!(insert_value(argv, value, end_ptr)))
 		*start_ptr = c;
 	if (value)
 		free(value);
-	return (end_ptr);
 }
 
 void 		replace_vars(t_var *env, char **argv)
@@ -101,7 +98,10 @@ void 		replace_vars(t_var *env, char **argv)
 			while (*arg == '\\' && *(arg + 1) == '$')
 				arg += 2;
 			if (*arg == '$' && *(arg + 1))
-				arg = replace_var(env, argv, arg);
+			{
+				replace_var(env, argv, arg);
+				arg = *argv;
+			}
 			else
 				arg++;
 		}
