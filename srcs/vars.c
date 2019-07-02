@@ -25,53 +25,86 @@ static char 		*get_home_path(t_var *env)
 	return (ft_strdup(user->pw_dir));
 }
 
-static char 			*remove_variable(char *str)
+static char 			*replace_home_var(t_var *env, char 	**argv)
 {
-	char 	*ptr;
+	char	*path;
+	char	*arg;
 
-	ptr = (str + 1);
-	while (*ptr && (ft_isalnum(*ptr) || *ptr == '_'))
-		ptr++;
-	return (ft_strcpy(str, ptr));
-}
-
-static char 			*get_builtin(t_var *env, char c)
-{
-	if (c == '~')
-		return (get_home_path(env));
-	return (NULL);
-}
-
-static char 			*get_bang(char c)
-{
-	return (NULL);
-}
-
-void					replace_vars(t_var *env, char **argv)
-{
-	char 	**args;
-	char 	*value;
-
-	args = argv;
-	while (*args)
+	if (!(path = get_home_path(env)))
+		return (*argv);
+	if (!(arg = ft_strjoin(path, *argv + 1)))
 	{
-		if ((**args && !*(*args + 1))
-			|| (*(*args + 1) && (**args == '$' || (**args == '!' && *(*args + 2)))))
+		free(path);
+		return (*argv);
+	}
+	free(*argv);
+	*argv = arg;
+	return (*argv);
+}
+
+static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
+{
+	int		size;
+	char	*arg;
+
+	size = ft_strlen(*argv);
+	if (value_ptr)
+		size += ft_strlen(value_ptr);
+	size += ft_strlen(after_ptr);
+	if (!(arg = (char*)ft_memalloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	ft_strcpy(arg, *argv);
+	if (value_ptr)
+		ft_strcat(arg, value_ptr);
+	ft_strcat(arg, after_ptr);
+	free(*argv);
+	*argv = arg;
+	return (arg);
+}
+
+static char			*replace_var(t_var *env, char **argv, char *start_ptr)
+{
+	char	*end_ptr;
+	char	*value;
+	char	c;
+
+	end_ptr = (start_ptr + 1);
+	while (*end_ptr && (ft_isalnum(*end_ptr) || *end_ptr == '_'
+		|| (*end_ptr == '$' && !*(end_ptr + 1))))
+		end_ptr++;
+	c = *end_ptr;
+	*end_ptr = '\0';
+	value =  *(start_ptr + 1) == '$' && !*(start_ptr + 2)
+		? ft_itoa(getpid()) : get_var(env, (start_ptr + 1));
+	*end_ptr = c;
+	c = *start_ptr;
+	*start_ptr = '\0';
+	printf("Le pointeur de fin est [%s]\n", end_ptr);
+	fflush(stdout);
+	if (!(insert_value(argv, value, end_ptr)))
+		*start_ptr = c;
+	if (value)
+		free(value);
+	return (end_ptr);
+}
+
+void 		replace_vars(t_var *env, char **argv)
+{
+	char 	*arg;
+
+	while ((arg = *argv))
+	{
+		if (*arg == '~')
+			arg = replace_home_var(env, argv);
+		while (*arg)
 		{
-			if (**args == '$' && *(*args + 1) == '$' && !*(*args + 2))
-				value = ft_itoa(getpid());
-			if (**args == '$')
-				value = get_var(env, *args + 1);
-			else if (**args == '!' && (*(*args + 1)))
-				value = get_bang(*(*args + 1));
+			while (*arg == '\\' && *(arg + 1) == '$')
+				arg += 2;
+			if (*arg == '$' && *(arg + 1))
+				arg = replace_var(env, argv, arg);
 			else
-				value = get_builtin(env, **args);
-			if (value)
-			{
-				free(*args);
-				*args = value;
-			}
+				arg++;
 		}
-		args++;
+		argv++;
 	}
 }

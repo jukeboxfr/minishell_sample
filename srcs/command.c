@@ -27,7 +27,7 @@ t_command			*parse_command(t_var *env, char *str)
 
 	if (!(command = (t_command*)ft_memalloc(sizeof(t_command))))
 		return (NULL);
-	if (!(command->argv = (char**)ft_strsplit(str, ' ')))
+	if (!(command->argv = (char**)ft_sstrsplit(str, " \t")))
 	{
 		free(command->argv);
 		return (NULL);
