@@ -62,12 +62,14 @@ static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
 	return (arg);
 }
 
-static void			replace_var(t_var *env, char **argv, char *start_ptr)
+static char		*replace_var(t_var *env, char **argv, char *start_ptr)
 {
 	char	*end_ptr;
 	char	*value;
 	char	c;
+	char	*offset;
 
+	off = *argv;
 	end_ptr = (start_ptr + 1);
 	while (*end_ptr && (ft_isalnum(*end_ptr) || *end_ptr == '_'
 		|| (*end_ptr == '$' && end_ptr == (start_ptr + 1))))
@@ -81,8 +83,11 @@ static void			replace_var(t_var *env, char **argv, char *start_ptr)
 	*start_ptr = '\0';
 	if (!(insert_value(argv, value, end_ptr)))
 		*start_ptr = c;
+	offset = *argv + (start_ptr - offset)
+		+ (value ? ft_strlen(value) : 0);
 	if (value)
 		free(value);
+	return (offset);
 }
 
 void 		replace_vars(t_var *env, char **argv)
@@ -96,11 +101,14 @@ void 		replace_vars(t_var *env, char **argv)
 		while (*arg)
 		{
 			while (*arg == '\\' && *(arg + 1) == '$')
-				arg += 2;
+			{
+				ft_strcpy(arg, (arg + 1));
+				arg++;
+			}
 			if (*arg == '$' && *(arg + 1))
 			{
-				replace_var(env, argv, arg);
-				arg = *argv;
+				arg = replace_var(env, argv, arg);
+				printf("Le retour est [%s]\n", arg);
 			}
 			else
 				arg++;
