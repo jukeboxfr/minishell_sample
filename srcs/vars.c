@@ -106,10 +106,7 @@ void 		replace_vars(t_var *env, char **argv)
 				arg++;
 			}
 			if (*arg == '$' && *(arg + 1))
-			{
 				arg = replace_var(env, argv, arg);
-				printf("Le retour est [%s]\n", arg);
-			}
 			else
 				arg++;
 		}
