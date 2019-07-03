@@ -62,6 +62,15 @@ static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
 	return (arg);
 }
 
+static t_bool	is_var_name(char *str, char *ptr)
+{
+	if (ptr > str && *(ptr - 1) == '$')
+		return (FALSE);
+	return (*ptr
+		 && (ft_isalnum(*ptr) || *ptr == '_')
+		|| *ptr == '$');
+}
+
 static char		*replace_var(t_var *env, char **argv, char *start_ptr)
 {
 	char	*end_ptr;
@@ -69,13 +78,13 @@ static char		*replace_var(t_var *env, char **argv, char *start_ptr)
 	char	c;
 	char	*offset;
 
-	off = *argv;
+	offset = *argv;
 	end_ptr = (start_ptr + 1);
-	while (*end_ptr && (ft_isalnum(*end_ptr) || *end_ptr == '_'
-		|| (*end_ptr == '$' && end_ptr == (start_ptr + 1))))
+	while (is_var_name(start_ptr + 1, end_ptr))
 		end_ptr++;
 	c = *end_ptr;
 	*end_ptr = '\0';
+	printf("[>] La variable evalué est {%s}\n", start_ptr);
 	value =  *(start_ptr + 1) == '$' && !*(start_ptr + 2)
 		? ft_itoa(getpid()) : get_var(env, (start_ptr + 1));
 	*end_ptr = c;
@@ -106,7 +115,10 @@ void 		replace_vars(t_var *env, char **argv)
 				arg++;
 			}
 			if (*arg == '$' && *(arg + 1))
+			{
 				arg = replace_var(env, argv, arg);
+				printf("[>] {%s}\n", arg);
+			}
 			else
 				arg++;
 		}

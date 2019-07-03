@@ -17,7 +17,7 @@ static void		signal_handler(int sig)
 	if (sig == SIGINT && g_child_pid != -1)
 	{
 		if (kill(g_child_pid, SIGINT) == ERROR)
-			ft_putstr("Can not kill the child process\n");
+			return ;
 		else
 			g_child_pid = -1;
 	}
