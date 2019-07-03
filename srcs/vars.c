@@ -12,19 +12,6 @@
 
 #include "minishell.h"
 
-static char				*get_home_path(t_var *env)
-{
-	char			*path;
-	struct passwd	*user;
-	uid_t			uid;
-
-	if ((path = get_var(env, "HOME")))
-		return (path);
-	uid = getuid();
-	user = getpwuid(uid);
-	return (ft_strdup(user->pw_dir));
-}
-
 static char				*replace_home_var(t_var *env, char **argv)
 {
 	char	*path;

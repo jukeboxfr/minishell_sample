@@ -86,7 +86,7 @@ static char		*search_file_path(t_var *env, char *filename)
 	char	**directories;
 	char	**dir;
 	char	*path;
-	int 	count;
+	int		count;
 
 	if (!(var = get_var(env, "PATH")))
 		return (NULL);

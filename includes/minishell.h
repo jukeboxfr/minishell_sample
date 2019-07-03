@@ -6,15 +6,15 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:58:01 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/15 02:09:27 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:41:39 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <sys/types.h>
-#include <signal.h>
+# include <sys/types.h>
+# include <signal.h>
 
 # include "types.h"
 # include "utils.h"
@@ -26,6 +26,8 @@
 char			*check_shell_bang(t_command *command, t_command *previous);
 
 void			display_stderr(char *arg, char *msg);
+
+char			*get_home_path(t_var *env);
 
 void			listen_signals(void);
 void			minishell(t_var **envp);

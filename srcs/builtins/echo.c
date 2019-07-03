@@ -14,7 +14,6 @@
 
 void	builtin_echo(int argc, char **argv, t_var **envp)
 {
-
 	(void)argc;
 	(void)envp;
 	argv++;
