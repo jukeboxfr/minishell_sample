@@ -31,9 +31,10 @@ typedef struct	s_var
 
 typedef struct	s_command
 {
-	int		argc;
-	char	**argv;
-	t_var	*env;
+	int					argc;
+	char				**argv;
+	t_var				*env;
+	struct s_command	*next;
 }				t_command;
 
 #endif

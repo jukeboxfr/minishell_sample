@@ -27,7 +27,13 @@ char			*check_shell_bang(t_command *command, t_command *previous);
 
 void			display_stderr(char *arg, char *msg);
 
+
+void			eval_prompt(char *ps1);
+void			clear_command(t_command **command_p);
+
 char			*get_home_path(t_var *env);
+
+t_command		**split_commands(t_var *env, char *line);
 
 void			listen_signals(void);
 void			minishell(t_var **envp);

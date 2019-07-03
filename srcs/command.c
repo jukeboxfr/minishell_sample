@@ -13,17 +13,22 @@
 #include "command.h"
 #include "utils.h"
 
-void				clear_command(t_command **command_p)
+static char					*get_cmd_end_ptr(char *str)
 {
-	clear_tab((*command_p)->argv);
-	free(*command_p);
-	*command_p = NULL;
+	while (*str)
+	{
+			while (*str == '\\' && *(str + 1) == ';')
+					str += 2;
+			if (*str == ';')
+					return (str);
+			str++;
+	}
+	return (str);
 }
 
-t_command			*parse_command(t_var *env, char *str)
+static t_command			*create_command(t_var *env, char *str)
 {
 	t_command	*command;
-	int			count;
 
 	if (!(command = (t_command*)ft_memalloc(sizeof(t_command))))
 		return (NULL);
@@ -37,4 +42,54 @@ t_command			*parse_command(t_var *env, char *str)
 	while (command->argv[command->argc])
 		command->argc++;
 	return (command);
+}
+
+static void					append_command(t_command **list, t_command *next)
+{
+	t_command	*last;
+
+	if (!*list)
+	{
+		*list = next;
+		return ;
+	}
+	last = *list;
+	while (last->next)
+		last = last->next;
+	last->next = next;
+}
+
+static int					check_ptr(char **ptr)
+{
+	while (**ptr == '\\' && *(*ptr + 1) == ';')
+		*ptr += 2;
+	while (**ptr == ';' || **ptr == ' ')
+		(*ptr)++;
+	return (**ptr);
+}
+
+t_command				**split_commands(t_var *env, char *line)
+{
+	char			*ptr;
+	char			*end;
+	char			c;
+	t_command		*command;
+	t_command		*commands;
+
+	commands = NULL;
+	ptr = line;
+	while (check_ptr(&ptr))
+	{
+		end = get_cmd_end_ptr(ptr);
+		c = *end;
+		*end = '\0';
+		if (!(command = create_command(env, ptr)))
+		{
+			clear_command(&commands);
+			break ;
+		}
+		append_command(&commands, command);
+		ptr = c ? (end + 1) : end;
+	}
+	return (commands);
 }

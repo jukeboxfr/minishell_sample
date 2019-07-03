@@ -17,7 +17,7 @@ ODIR = obj/
 SDIR = srcs/
 INCLUDES = -I ./includes -I $(LDIR)includes
 CFLAGS = -g -Wall -Werror -Wextra
-FILES = main.c minishell.c command.c display.c vars.c signals.c \
+FILES = main.c minishell.c command.c helpers.c vars.c signals.c \
 		env/clear.c env/handle.c env/parse.c env/str.c \
 		builtins/cd.c builtins/echo.c builtins/env.c \
 		builtins/setenv.c builtins/unsetenv.c \

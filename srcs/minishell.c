@@ -58,30 +58,50 @@ int		check_builtin(t_var **envp, t_command *command)
 	return (ERROR);
 }
 
-void	minishell(t_var **envp)
+static t_bool		handle_line(t_var **envp, char *line)
 {
-	char		*line;
+	t_command	*commands;
 	t_command	*command;
 
-	g_child_pid = 0;
-	line = NULL;
-	while (1)
+	if (!(commands = split_commands(*envp, line)))
+		return (TRUE);
+	command = commands;
+	while (command)
 	{
-		ft_putstr("$> ");
-		if (read_until(&line, '\n', FALSE) < 0)
-			return ;
-		command = parse_command(*envp, line);
-		free(line);
-		if (!command)
-			continue ;
 		command->env = *envp;
+		if (check_builtin(envp, command))
+			exec(command);
 		if (!ft_strcmp(command->argv[0], "exit"))
 		{
 			clear_command(&command);
-			return ;
+			return (FALSE);
 		}
-		if (check_builtin(envp, command))
-			exec(command);
-		clear_command(&command);
+		command = command->next;
+	}
+	clear_command(&commands);
+	return (TRUE);
+}
+
+void			minishell(t_var **envp)
+{
+	char			*line;
+	t_command		commands;
+	char 			*prompt;
+	int 			i;
+	t_bool			proceed;
+
+	line = NULL;
+	proceed = TRUE;
+	while (proceed)
+	{
+		prompt = get_var(*envp, "PS12");
+		ft_putstr(prompt ? prompt : "$> ");
+		if (read_until(&line, '\n', FALSE) < 0)
+			continue ;
+		if (!handle_line(envp, line))
+			proceed = FALSE;
+		free(line);
+		if (prompt)
+			free(prompt);
 	}
 }
