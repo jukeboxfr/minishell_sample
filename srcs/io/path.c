@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "io.h"
+#include "minishell.h"
 
 static t_bool	executable(t_dirent *file, char *path)
 {
@@ -20,20 +19,14 @@ static t_bool	executable(t_dirent *file, char *path)
 
 	if (file->d_type == DT_DIR)
 	{
-		ft_putstr("minishell: ");
-		ft_putstr(path);
-		ft_putstr(": is a directory\n");
+		display_stderr(path, "is a directory");
 		return (FALSE);
 	}
 	f = (file->d_type == DT_LNK) ? &stat : &lstat;
 	if (f(path, &s))
 		return (FALSE);
 	if (!(s.st_mode & S_IXUSR))
-	{
-		ft_putstr("minishell: ");
-		ft_putstr(path);
-		ft_putstr(": Permission denied\n");
-	}
+		display_stderr(path, "Permission denied");
 	return (s.st_mode & S_IXUSR);
 }
 
@@ -110,11 +103,7 @@ static char		*search_file_path(t_var *env, char *filename)
 		dir++;
 	}
 	if (!count)
-	{
-		ft_putstr("minishell: ");
-		ft_putstr(filename);
-		ft_putstr(": command not found\n");
-	}
+		display_stderr(filename, "command not found");
 	clear_tab(directories);
 	return (path);
 }
@@ -130,11 +119,7 @@ char			*get_path(t_var *env, char *filename)
 		if ((path = get_file_path(filename, NULL, &count)))
 			return (path);
 		if (!count)
-		{
-			ft_putstr("minishell: ");
-			ft_putstr(filename);
-			ft_putstr(": command not found\n");
-		}
+			display_stderr(filename, "command not found");
 		return (NULL);
 	}
 	return (search_file_path(env, filename));

@@ -25,6 +25,8 @@
 
 char			*check_shell_bang(t_command *command, t_command *previous);
 
+void			display_stderr(char *arg, char *msg);
+
 void			listen_signals(void);
 void			minishell(t_var **envp);
 char			*parse_args(char *line);
