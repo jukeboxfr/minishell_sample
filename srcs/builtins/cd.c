@@ -117,10 +117,16 @@ static void		change_directory(t_var **envp, char *path)
 	edit_var(envp, "PWD", pwd);
 }
 
+
+
+
+
 void			builtin_cd(int argc, char **argv, t_var **envp)
 {
 	char	*path;
 
+	if (argc > 2)
+		return ;
 	if (argc < 2)
 	{
 		if ((path = get_var(*envp, "HOME")))
@@ -128,14 +134,15 @@ void			builtin_cd(int argc, char **argv, t_var **envp)
 			change_directory(envp, path);
 			free(path);
 		}
-		return ;
+		return change_directory(*envp, "~");
 	}
-	if (argc > 3)
-	{
-		puts("Error test\n");
+	path = argv[1];
+	if (argv[1][0] == '-' && !argv[1][1])
+		path = get_var(*envp, "OLDPWD");
+	if (!path)
 		return ;
-	}
-	if (fi_not_access(argv[1]))
-		return ;
-	change_directory(envp, argv[1]);
+	if (!fi_not_access(path))
+		change_directory(envp, path);
+	if (path != argv[1])
+		free(path);
 }

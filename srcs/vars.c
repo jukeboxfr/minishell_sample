@@ -90,7 +90,7 @@ static char				*replace_var(t_var *env, char **argv, char *start_ptr)
 	*end_ptr = c;
 	c = *start_ptr;
 	*start_ptr = '\0';
-	if (!(insert_value(argv, value, end_ptr)))
+	if (!(add_val(argv, value, end_ptr)))
 		*start_ptr = c;
 	offset = *argv + (start_ptr - offset)
 		+ (value ? ft_strlen(value) : 0);
