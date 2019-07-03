@@ -6,16 +6,16 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 12:12:53 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/08 12:15:28 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:24:23 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char 		*get_home_path(t_var *env)
+static char				*get_home_path(t_var *env)
 {
-	char 			*path;
-	struct 	passwd 	*user;;
+	char			*path;
+	struct passwd	*user;
 	uid_t			uid;
 
 	if ((path = get_var(env, "HOME")))
@@ -25,7 +25,7 @@ static char 		*get_home_path(t_var *env)
 	return (ft_strdup(user->pw_dir));
 }
 
-static char 			*replace_home_var(t_var *env, char 	**argv)
+static char				*replace_home_var(t_var *env, char **argv)
 {
 	char	*path;
 	char	*arg;
@@ -42,7 +42,7 @@ static char 			*replace_home_var(t_var *env, char 	**argv)
 	return (*argv);
 }
 
-static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
+static char				*add_val(char **argv, char *value_ptr, char *after_ptr)
 {
 	int		size;
 	char	*arg;
@@ -62,17 +62,17 @@ static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
 	return (arg);
 }
 
-static t_bool	is_var_name(char *str, char *ptr)
+static t_bool			is_var_name(char *str, char *ptr)
 {
 	if (ptr > str && (*(ptr - 1) == '$'
 		|| *ptr == '$'))
 		return (FALSE);
 	return (*ptr
-		 && (ft_isalnum(*ptr) || *ptr == '_')
-		|| *ptr == '$');
+			&& (ft_isalnum(*ptr) || *ptr == '_')
+			|| *ptr == '$');
 }
 
-static char		*replace_var(t_var *env, char **argv, char *start_ptr)
+static char				*replace_var(t_var *env, char **argv, char *start_ptr)
 {
 	char	*end_ptr;
 	char	*value;
@@ -85,7 +85,7 @@ static char		*replace_var(t_var *env, char **argv, char *start_ptr)
 		end_ptr++;
 	c = *end_ptr;
 	*end_ptr = '\0';
-	value =  *(start_ptr + 1) == '$' && !*(start_ptr + 2)
+	value = *(start_ptr + 1) == '$' && !*(start_ptr + 2)
 		? ft_itoa(getpid()) : get_var(env, (start_ptr + 1));
 	*end_ptr = c;
 	c = *start_ptr;
@@ -99,9 +99,9 @@ static char		*replace_var(t_var *env, char **argv, char *start_ptr)
 	return (offset);
 }
 
-void 		replace_vars(t_var *env, char **argv)
+void					replace_vars(t_var *env, char **argv)
 {
-	char 	*arg;
+	char	*arg;
 
 	while ((arg = *argv))
 	{
