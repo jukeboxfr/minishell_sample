@@ -64,7 +64,8 @@ static char 	*insert_value(char **argv, char *value_ptr, char *after_ptr)
 
 static t_bool	is_var_name(char *str, char *ptr)
 {
-	if (ptr > str && *(ptr - 1) == '$')
+	if (ptr > str && (*(ptr - 1) == '$'
+		|| *ptr == '$'))
 		return (FALSE);
 	return (*ptr
 		 && (ft_isalnum(*ptr) || *ptr == '_')
