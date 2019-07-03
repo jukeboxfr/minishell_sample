@@ -117,10 +117,6 @@ static void		change_directory(t_var **envp, char *path)
 	edit_var(envp, "PWD", pwd);
 }
 
-
-
-
-
 void			builtin_cd(int argc, char **argv, t_var **envp)
 {
 	char	*path;
@@ -134,13 +130,13 @@ void			builtin_cd(int argc, char **argv, t_var **envp)
 			change_directory(envp, path);
 			free(path);
 		}
-		return change_directory(*envp, "~");
+		return (change_directory(*envp, "~"));
 	}
 	path = argv[1];
 	if (argv[1][0] == '-' && !argv[1][1])
 		path = get_var(*envp, "OLDPWD");
 	if (!path)
-		return ;
+		return ft_putstr("minishell: cd: OLDPWD not set\n");
 	if (!fi_not_access(path))
 		change_directory(envp, path);
 	if (path != argv[1])

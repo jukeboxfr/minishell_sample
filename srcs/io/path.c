@@ -19,14 +19,25 @@ static t_bool	executable(t_dirent *file, char *path)
 	int				(*f)(const char*, struct stat*);
 
 	if (file->d_type == DT_DIR)
+	{
+		ft_putstr("minishell: ");
+		ft_putstr(path);
+		ft_putstr(": is a directory\n");
 		return (FALSE);
+	}
 	f = (file->d_type == DT_LNK) ? &stat : &lstat;
 	if (f(path, &s))
 		return (FALSE);
+	if (!(s.st_mode & S_IXUSR))
+	{
+		ft_putstr("minishell: ");
+		ft_putstr(path);
+		ft_putstr(": Permission denied\n");
+	}
 	return (s.st_mode & S_IXUSR);
 }
 
-static char		*foo(char *base, char *filename)
+static char		*search_file(char *base, char *filename, int *count)
 {
 	t_dir		dir;
 	t_dirent	*file;
@@ -40,6 +51,7 @@ static char		*foo(char *base, char *filename)
 	{
 		if (ft_strcasecmp(file->d_name, filename))
 			continue ;
+		(*count)++;
 		if (!(path = join_path(base, filename)))
 			break ;
 		if (!executable(file, path))
@@ -53,7 +65,7 @@ static char		*foo(char *base, char *filename)
 	return (path);
 }
 
-static char		*get_file_path(char *path, char *filename)
+static char		*get_file_path(char *path, char *filename, int *count)
 {
 	char	*base;
 	char	*file_path;
@@ -68,7 +80,7 @@ static char		*get_file_path(char *path, char *filename)
 	}
 	else
 		base = path;
-	file_path = foo(base, filename);
+	file_path = search_file(base, filename, count);
 	free(path);
 	if (base != path)
 		free(base);
@@ -81,6 +93,7 @@ static char		*search_file_path(t_var *env, char *filename)
 	char	**directories;
 	char	**dir;
 	char	*path;
+	int 	count;
 
 	if (!(var = get_var(env, "PATH")))
 		return (NULL);
@@ -89,11 +102,18 @@ static char		*search_file_path(t_var *env, char *filename)
 	if (!(dir = directories))
 		return (NULL);
 	path = NULL;
+	count = 0;
 	while (*dir)
 	{
-		if ((path = get_file_path(*dir, filename)))
+		if ((path = get_file_path(*dir, filename, &count)))
 			break ;
 		dir++;
+	}
+	if (!count)
+	{
+		ft_putstr("minishell: ");
+		ft_putstr(filename);
+		ft_putstr(": command not found\n");
 	}
 	clear_tab(directories);
 	return (path);
@@ -102,11 +122,19 @@ static char		*search_file_path(t_var *env, char *filename)
 char			*get_path(t_var *env, char *filename)
 {
 	char	*path;
+	int		count;
 
+	count = 0;
 	if (ft_strchr(filename, '/'))
 	{
-		if ((path = get_file_path(filename, NULL)))
+		if ((path = get_file_path(filename, NULL, &count)))
 			return (path);
+		if (!count)
+		{
+			ft_putstr("minishell: ");
+			ft_putstr(filename);
+			ft_putstr(": command not found\n");
+		}
 		return (NULL);
 	}
 	return (search_file_path(env, filename));
