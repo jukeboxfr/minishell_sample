@@ -94,7 +94,7 @@ void			minishell(t_var **envp)
 	proceed = TRUE;
 	while (proceed)
 	{
-		prompt = get_var(*envp, "PS12");
+		prompt = get_var(*envp, "PS1");
 		ft_putstr(prompt ? prompt : "$> ");
 		if (read_until(&line, '\n', FALSE) < 0)
 			continue ;
