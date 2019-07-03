@@ -84,7 +84,6 @@ static char		*replace_var(t_var *env, char **argv, char *start_ptr)
 		end_ptr++;
 	c = *end_ptr;
 	*end_ptr = '\0';
-	printf("[>] La variable evalué est {%s}\n", start_ptr);
 	value =  *(start_ptr + 1) == '$' && !*(start_ptr + 2)
 		? ft_itoa(getpid()) : get_var(env, (start_ptr + 1));
 	*end_ptr = c;
@@ -114,11 +113,9 @@ void 		replace_vars(t_var *env, char **argv)
 				ft_strcpy(arg, (arg + 1));
 				arg++;
 			}
-			if (*arg == '$' && *(arg + 1))
-			{
+			if (*arg == '$' && (ft_isalnum(*(arg + 1)) || *(arg + 1) == '_'
+				|| *(arg + 1) == '$'))
 				arg = replace_var(env, argv, arg);
-				printf("[>] {%s}\n", arg);
-			}
 			else
 				arg++;
 		}
