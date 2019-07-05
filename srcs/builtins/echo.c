@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:03:56 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/05 15:49:00 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:34:34 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,20 @@ static int	get_options(char **argv)
 	i = 1;
 	while (*argv)
 	{
-		if (argv[0] == '-' && argv[1] != '\0')
+		if (*argv[0] == '-' && *argv[1] != '\0')
 		{
-			if (argv[1] == '-' && argv[2] == '\0')
+			if (*argv[1] == '-' && *argv[2] == '\0')
 				break ;
 			if (set_opts(&opts, *argv) != SUCCESS)
 				return (ERROR);
+			*argv = NULL;
 		}
 		argv++;
 	}
 	return (opts);
 }
 
-static void eval(char *str)
+static void eval(char *str, int *opts)
 {
 	char	*ptr;
 
@@ -69,8 +70,10 @@ static void eval(char *str)
 		{
 			if (*(ptr + 1) == 'a' || *(ptr + 1) == 'b')
 				ft_putchar(*(ptr + 1) == 'a' ? '\a' : '\b');
-			else if (*(ptr + 1) == 'c' || *(ptr + 1) == 'f')
-				ft_putchar(*(ptr + 1) == 'c' ? '\c' : '\f');
+			else if (*(ptr + 1) == 'c')
+				*opts |= O_LINES;
+			else if (*(ptr + 1) == 'f')
+				ft_putchar('\f');
 			else if (*(ptr + 1) == 'n' || *(ptr + 1) == 'r')
 				ft_putchar(*(ptr + 1) == 'n' ? '\n' : '\r');
 			else if (*(ptr + 1) == 't' || *(ptr + 1) == 'v')
@@ -87,17 +90,23 @@ static void eval(char *str)
 void		builtin_echo(int argc, char **argv, t_var **envp)
 {
 	int	i;
+	int	j;
 	int	options;
 
 	options = get_options(argv);
 	(void)envp;
 	i = 1;
+	j = 0;
 	while (i < argc)
 	{
-		if (i > 1)
+		if (j)
 			ft_putchar(' ');
 		if (argv[i])
-			(options & O_ALL) == O_ALL ? eval(argv[i]) : ft_putstr(argv[i]);
+		{
+		(options & O_ALL) == O_ALL
+				? eval(argv[i], &options) : ft_putstr(argv[i]);
+			j++;
+		}
 		i++;
 	}
 	if ((options & O_LINES) != O_LINES)

@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:43:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/15 02:11:01 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:11:29 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static t_bool		handle_line(t_var **envp, char *line)
 	while (command)
 	{
 		command->env = *envp;
-		if (check_builtin(envp, command))
-			exec(command);
 		if (!ft_strcmp(command->argv[0], "exit"))
 		{
 			clear_command(&command);
 			return (FALSE);
 		}
+		if (check_builtin(envp, command))
+			exec(command);
 		command = command->next;
 	}
 	clear_command(&commands);
