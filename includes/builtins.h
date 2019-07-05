@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 12:16:45 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/10 19:25:14 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:25:02 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "command.h"
 # include "io.h"
 # include "types.h"
+
+# define O_ALL (1 << 0)
+# define O_LINES (1 << 1)
 
 # define ERR_NOT_DIR (1 << 0)
 # define ERR_DENIED (1 << 2)

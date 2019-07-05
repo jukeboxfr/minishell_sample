@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:03:56 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/03 16:29:08 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:49:00 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,48 @@ static int	get_options(char **argv)
 	return (opts);
 }
 
+static void eval(char *str)
+{
+	char	*ptr;
+
+	ptr = str;
+	while (*ptr)
+	{
+		if (*ptr == '\\' && ft_strchr("abcfnrtv\\", *(ptr + 1)))
+		{
+			if (*(ptr + 1) == 'a' || *(ptr + 1) == 'b')
+				ft_putchar(*(ptr + 1) == 'a' ? '\a' : '\b');
+			else if (*(ptr + 1) == 'c' || *(ptr + 1) == 'f')
+				ft_putchar(*(ptr + 1) == 'c' ? '\c' : '\f');
+			else if (*(ptr + 1) == 'n' || *(ptr + 1) == 'r')
+				ft_putchar(*(ptr + 1) == 'n' ? '\n' : '\r');
+			else if (*(ptr + 1) == 't' || *(ptr + 1) == 'v')
+				ft_putchar(*(ptr + 1) == 't' ? '\t' : '\v');
+			else if (*(ptr + 1) == '\\')
+				ft_putchar('\\');
+			ptr += 2;
+		}
+		else
+			ft_putchar(*ptr++);
+	}
+}
+
 void		builtin_echo(int argc, char **argv, t_var **envp)
 {
 	int	i;
 	int	options;
 
 	options = get_options(argv);
-	(void)argc;
 	(void)envp;
-	i = 0;
+	i = 1;
 	while (i < argc)
 	{
+		if (i > 1)
+			ft_putchar(' ');
 		if (argv[i])
-		{
-			ft_putstr(*argv[i]);
-		}
+			(options & O_ALL) == O_ALL ? eval(argv[i]) : ft_putstr(argv[i]);
 		i++;
 	}
+	if ((options & O_LINES) != O_LINES)
+		ft_putchar('\n');
 }
