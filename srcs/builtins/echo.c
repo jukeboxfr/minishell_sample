@@ -46,13 +46,12 @@ static int		get_options(char **argv)
 	i = 1;
 	while (*argv)
 	{
-		if (*argv[0] == '-' && *argv[1] != '\0')
+		if ((*argv)[0] == '-' && (*argv)[1] != '\0')
 		{
-			if (*argv[1] == '-' && *argv[2] == '\0')
+			if (set_opts(&opts, *argv) == SUCCESS)
+				*argv = NULL;
+			else
 				break ;
-			if (set_opts(&opts, *argv) != SUCCESS)
-				return (ERROR);
-			*argv = NULL;
 		}
 		argv++;
 	}

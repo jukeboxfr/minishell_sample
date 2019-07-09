@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:58:01 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:41:39 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:51:33 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 char			*check_shell_bang(t_command *command, t_command *previous);
 
 void			display_stderr(char *arg, char *msg);
-
 
 void			change_directory(t_var **envp, char *path);
 

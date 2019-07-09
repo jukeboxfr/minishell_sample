@@ -20,6 +20,9 @@
 # define O_ALL (1 << 0)
 # define O_LINES (1 << 1)
 
+# define UNSET_IND 0
+# define IGNORE_IND 1
+
 # define ERR_NOT_DIR (1 << 0)
 # define ERR_DENIED (1 << 2)
 # define ERR_NOT_FOUND (1 << 3)
