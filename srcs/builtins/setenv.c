@@ -46,9 +46,7 @@ void		builtin_setenv(int argc, char **argv, t_var **envp)
 	if (!(name = get_var_name(argv[1])))
 		return ;
 	if (!(value = get_var_value(argv[1])))
-	{
-		free(name);
-		return ;
-	}
+		return (free(name));
 	edit_var(envp, name, value);
+	free(name);
 }

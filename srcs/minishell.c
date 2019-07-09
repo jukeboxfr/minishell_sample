@@ -71,7 +71,8 @@ static t_bool		handle_line(t_var **envp, char *line)
 		command->env = *envp;
 		if (!ft_strcmp(command->argv[0], "exit"))
 		{
-			clear_command(&command);
+			clear_command(&commands);
+			clear_envp(envp);
 			return (FALSE);
 		}
 		if (check_builtin(envp, command))

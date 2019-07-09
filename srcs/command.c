@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
-#include "utils.h"
+#include "minishell.h"
 
 static char					*get_cmd_end_ptr(char *str)
 {
@@ -68,7 +67,7 @@ static int					check_ptr(char **ptr)
 	return (**ptr);
 }
 
-t_command				**split_commands(t_var *env, char *line)
+t_command				*split_commands(t_var *env, char *line)
 {
 	char			*ptr;
 	char			*end;

@@ -30,8 +30,8 @@ void		clear_command(t_command **command_p)
 	while ((current = next))
 	{
 		next = current->next;
-		free(current);
 		clear_tab(current->argv);
+		free(current);
 	}
 	*command_p = NULL;
 }

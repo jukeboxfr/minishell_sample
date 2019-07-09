@@ -24,6 +24,7 @@ static char				*replace_home_var(t_var *env, char **argv)
 		free(path);
 		return (*argv);
 	}
+	free(path);
 	free(*argv);
 	*argv = arg;
 	return (*argv);
@@ -54,8 +55,8 @@ static t_bool			is_var_name(char *str, char *ptr)
 	if (ptr > str && (*(ptr - 1) == '$'
 		|| *ptr == '$'))
 		return (FALSE);
-	return (*ptr
-			&& (ft_isalnum(*ptr) || *ptr == '_')
+	return ((*ptr
+			&& (ft_isalnum(*ptr) || *ptr == '_'))
 			|| *ptr == '$');
 }
 

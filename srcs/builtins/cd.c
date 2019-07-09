@@ -122,15 +122,13 @@ void			builtin_cd(int argc, char **argv, t_var **envp)
 	char	*path;
 
 	if (argc > 2)
-		return ;
+		return (ft_putstr("cd: too many arguments\n"));
 	if (argc < 2)
 	{
-		if ((path = get_var(*envp, "HOME")))
-		{
-			change_directory(envp, path);
-			free(path);
-		}
-		return (change_directory(*envp, "~"));
+		if (!(path = get_home_path(*envp)))
+			return ;
+		change_directory(envp, path);
+		return (free(path));
 	}
 	path = argv[1];
 	if (argv[1][0] == '-' && !argv[1][1])

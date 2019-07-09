@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "command.h"
-#include "io.h"
+#include "minishell.h"
 
 void	start_process(char *path, t_command *command)
 {

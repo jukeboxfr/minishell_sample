@@ -95,6 +95,9 @@ void			remove_var(t_var **envp, char *name)
 			if (var->next)
 				var->next->previous = var->previous;
 			var->next = NULL;
+			free(var->name);
+			free(var->value);
+			free(var);
 			var = *envp;
 			continue ;
 		}
