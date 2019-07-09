@@ -118,7 +118,7 @@ void			builtin_cd(int argc, char **argv, t_var **envp)
 	if (argv[1][0] == '-' && !argv[1][1])
 		path = get_var(*envp, "OLDPWD");
 	if (!path)
-		return (display_stderr("cd", "OLDPWD not set\n"));
+		return (display_stderr("cd", "OLDPWD not set"));
 	if (!fi_not_access(path))
 		change_directory(envp, path);
 	if (path != argv[1])

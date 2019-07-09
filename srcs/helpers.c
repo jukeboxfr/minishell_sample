@@ -21,20 +21,26 @@ void		display_stderr(char *arg, char *msg)
 	ft_putchar_fd('\n', 2);
 }
 
-void		change_directory(t_var **envp, char *path)
+static char	*get_current_pwd(void)
 {
 	char	buffer[MAX_PATH + 1];
-	char	*old;
-	char	*pwd;
 
-	chdir(path);
-	if (!(old = get_var(*envp, "PWD")))
-		return ;
-	edit_var(envp, "OLDPWD", old);
 	getcwd(buffer, MAX_PATH);
-	if (!(pwd = ft_strdup(buffer)))
+	return (ft_strdup(buffer));
+}
+
+void		change_directory(t_var **envp, char *path)
+{
+	char	*old_pwd;
+	char	*current_pwd;
+
+	if (!(old_pwd = get_current_pwd()))
 		return ;
-	edit_var(envp, "PWD", pwd);
+	chdir(path);
+	edit_var(envp, "OLDPWD", old_pwd);
+	if (!(current_pwd = get_current_pwd()))
+		return ;
+	edit_var(envp, "PWD", current_pwd);
 }
 
 void		clear_command(t_command **command_p)
