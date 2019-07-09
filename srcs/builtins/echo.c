@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:03:56 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/05 16:34:34 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:18:05 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_bool	set_opts(int *opts, char *opt)
 	return (SUCCESS);
 }
 
-static int	get_options(char **argv)
+static int		get_options(char **argv)
 {
 	int		i;
 	int		opts;
@@ -59,7 +59,7 @@ static int	get_options(char **argv)
 	return (opts);
 }
 
-static void eval(char *str, int *opts)
+static void		eval(char *str, int *opts)
 {
 	char	*ptr;
 
@@ -87,7 +87,7 @@ static void eval(char *str, int *opts)
 	}
 }
 
-void		builtin_echo(int argc, char **argv, t_var **envp)
+void			builtin_echo(int argc, char **argv, t_var **envp)
 {
 	int	i;
 	int	j;
@@ -103,7 +103,7 @@ void		builtin_echo(int argc, char **argv, t_var **envp)
 			ft_putchar(' ');
 		if (argv[i])
 		{
-		(options & O_ALL) == O_ALL
+			(options & O_ALL) == O_ALL
 				? eval(argv[i], &options) : ft_putstr(argv[i]);
 			j++;
 		}

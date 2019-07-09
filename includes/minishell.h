@@ -28,6 +28,8 @@ char			*check_shell_bang(t_command *command, t_command *previous);
 void			display_stderr(char *arg, char *msg);
 
 
+void			change_directory(t_var **envp, char *path);
+
 void			eval_prompt(char *ps1);
 void			clear_command(t_command **command_p);
 

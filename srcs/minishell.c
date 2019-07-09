@@ -6,13 +6,13 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:43:13 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/05 16:11:29 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:15:56 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_home_path(t_var *env)
+char				*get_home_path(t_var *env)
 {
 	char			*path;
 	struct passwd	*user;
@@ -25,7 +25,7 @@ char	*get_home_path(t_var *env)
 	return (ft_strdup(user->pw_dir));
 }
 
-void	exec(t_command *command)
+void				exec(t_command *command)
 {
 	char	*path;
 
@@ -35,7 +35,7 @@ void	exec(t_command *command)
 	free(path);
 }
 
-int		check_builtin(t_var **envp, t_command *command)
+int					check_builtin(t_var **envp, t_command *command)
 {
 	void	(*f)(int, char**, t_var**);
 
@@ -83,12 +83,12 @@ static t_bool		handle_line(t_var **envp, char *line)
 	return (TRUE);
 }
 
-void			minishell(t_var **envp)
+void				minishell(t_var **envp)
 {
 	char			*line;
 	t_command		commands;
-	char 			*prompt;
-	int 			i;
+	char			*prompt;
+	int				i;
 	t_bool			proceed;
 
 	line = NULL;

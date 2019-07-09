@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:25:37 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:25:43 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:15:25 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,28 @@ void		display_stderr(char *arg, char *msg)
 	ft_putchar_fd('\n', 2);
 }
 
+void		change_directory(t_var **envp, char *path)
+{
+	char	buffer[MAX_PATH + 1];
+	char	*old;
+	char	*pwd;
+
+	chdir(path);
+	if (!(old = get_var(*envp, "PWD")))
+		return ;
+	edit_var(envp, "OLDPWD", old);
+	getcwd(buffer, MAX_PATH);
+	if (!(pwd = ft_strdup(buffer)))
+		return ;
+	edit_var(envp, "PWD", pwd);
+}
+
 void		clear_command(t_command **command_p)
 {
 	t_command	*current;
 	t_command	*next;
 
-	next= *command_p;
+	next = *command_p;
 	while ((current = next))
 	{
 		next = current->next;

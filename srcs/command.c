@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 11:56:53 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/07/03 16:28:15 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:17:00 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static char					*get_cmd_end_ptr(char *str)
 {
 	while (*str)
 	{
-			while (*str == '\\' && *(str + 1) == ';')
-					str += 2;
-			if (*str == ';')
-					return (str);
-			str++;
+		while (*str == '\\' && *(str + 1) == ';')
+			str += 2;
+		if (*str == ';')
+			return (str);
+		str++;
 	}
 	return (str);
 }
@@ -67,7 +67,7 @@ static int					check_ptr(char **ptr)
 	return (**ptr);
 }
 
-t_command				*split_commands(t_var *env, char *line)
+t_command					*split_commands(t_var *env, char *line)
 {
 	char			*ptr;
 	char			*end;

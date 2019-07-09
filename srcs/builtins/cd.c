@@ -6,7 +6,7 @@
 /*   By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 19:45:35 by kesaint-          #+#    #+#             */
-/*   Updated: 2019/06/10 14:48:34 by kesaint-         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:21:10 by kesaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		check_symlink(char *path)
 	return (code);
 }
 
-int			check_directory(char *path, char *base, char *filename)
+int				check_directory(char *path, char *base, char *filename)
 {
 	t_dir		dir;
 	t_dirent	*file;
@@ -99,22 +99,6 @@ static int		fi_not_access(char *arg)
 	free(path);
 	free(base);
 	return (code);
-}
-
-static void		change_directory(t_var **envp, char *path)
-{
-	char	buffer[MAX_PATH + 1];
-	char	*old;
-	char	*pwd;
-
-	chdir(path);
-	if (!(old = get_var(*envp, "PWD")))
-		return ;
-	edit_var(envp, "OLDPWD", old);
-	getcwd(buffer, MAX_PATH);
-	if (!(pwd = ft_strdup(buffer)))
-		return ;
-	edit_var(envp, "PWD", pwd);
 }
 
 void			builtin_cd(int argc, char **argv, t_var **envp)
