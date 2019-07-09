@@ -6,7 +6,7 @@
 #    By: kesaint- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 18:20:01 by kesaint-          #+#    #+#              #
-#    Updated: 2019/06/15 02:08:59 by kesaint-         ###   ########.fr        #
+#    Updated: 2019/07/09 16:22:54 by kesaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LDIR = libft/
 ODIR = obj/
 SDIR = srcs/
 INCLUDES = -I ./includes -I $(LDIR)includes
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 FILES = main.c minishell.c command.c helpers.c vars.c signals.c \
 		env/clear.c env/handle.c env/parse.c env/str.c \
 		builtins/cd.c builtins/echo.c builtins/env.c \
