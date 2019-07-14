@@ -44,9 +44,9 @@ int					check_builtin(t_var **envp, t_command *command)
 		f = &builtin_echo;
 	if (!ft_strcmp(command->argv[0], "cd"))
 		f = &builtin_cd;
-	if (!ft_strcmp(command->argv[0], "export"))
+	if (!ft_strcmp(command->argv[0], "setenv"))
 		f = &builtin_setenv;
-	if (!ft_strcmp(command->argv[0], "unset"))
+	if (!ft_strcmp(command->argv[0], "unsetenv"))
 		f = &builtin_unsetenv;
 	if (!ft_strcmp(command->argv[0], "env"))
 		f = &builtin_env;
@@ -69,10 +69,14 @@ static t_bool		handle_line(t_var **envp, char *line)
 	while (command)
 	{
 		command->env = *envp;
+		if (!command->argv || !command->argv[0])
+		{
+			clear_command(&command);
+			return (TRUE);
+		}
 		if (!ft_strcmp(command->argv[0], "exit"))
 		{
 			clear_command(&commands);
-			clear_envp(envp);
 			return (FALSE);
 		}
 		if (check_builtin(envp, command))
@@ -105,4 +109,5 @@ void				minishell(t_var **envp)
 		if (prompt)
 			free(prompt);
 	}
+	clear_envp(envp);
 }
